@@ -6,18 +6,20 @@
 #include <iomanip>
 #include <filesystem>
 #include <fstream>
-namespace fs = std::filesystem;
+
+using namespace std;
+namespace fs = filesystem;
 
 int main() {
-    std::string inputFolder = "data/input";
-    std::string outputFolder = "data/output";
+    string inputFolder = "data/input";
+    string outputFolder = "data/output";
     
-    std::cout << "--- Auto-Scanning Batch Processor ---" << std::endl;
-    std::cout << "Scanning folder: " << inputFolder << " for .csv files..." << std::endl;
+    cout << "--- Auto-Scanning Batch Processor ---" << endl;
+    cout << "Scanning folder: " << inputFolder << " for .csv files..." << endl;
 
     // Check if the input directory actually exists
     if (!fs::exists(inputFolder) || !fs::is_directory(inputFolder)) {
-        std::cerr << "Error: Directory '" << inputFolder << "' does not exist." << std::endl;
+        cerr << "Error: Directory '" << inputFolder << "' does not exist." << endl;
         return 1;
     }
 
@@ -29,51 +31,51 @@ int main() {
         // We only care about normal files that end in ".csv"
         if (entry.is_regular_file() && entry.path().extension() == ".csv") {
             
-            std::string currentInputFile = entry.path().string();
-            std::string baseFileName = entry.path().stem().string(); // grabs just the name (e.g., "my_data")
+            string currentInputFile = entry.path().string();
+            string baseFileName = entry.path().stem().string(); // grabs just the name (e.g., "my_data")
             
             // Automatically generate a matching output file name!
-            std::string currentOutputFile = outputFolder + "/results_" + baseFileName + ".csv";
+            string currentOutputFile = outputFolder + "/results_" + baseFileName + ".csv";
             
-            std::cout << "\n========================================" << std::endl;
-            std::cout << "Processing File: " << baseFileName << ".csv" << std::endl;
+            cout << "\n========================================" << endl;
+            cout << "Processing File: " << baseFileName << ".csv" << endl;
             
             meanshift::Dataset dataset;
             if (!dataset.loadFromCSV(currentInputFile, true)) {
-                std::cerr << "-> Skipping... (Failed to read CSV)" << std::endl;
+                cerr << "-> Skipping... (Failed to read CSV)" << endl;
                 continue; 
             }
             
-            std::cout << "-> Running MeanShift clustering..." << std::endl;
+            cout << "-> Running MeanShift clustering..." << endl;
             meanshift::MeanShift ms(2.0, 1e-3, 300);
             ms.fit(dataset.getData());
             
-            std::cout << "-> Number of clusters found: " << ms.getClusters().size() << std::endl;
-            std::cout << "-> Saving to: " << currentOutputFile << std::endl;
+            cout << "-> Number of clusters found: " << ms.getClusters().size() << endl;
+            cout << "-> Saving to: " << currentOutputFile << endl;
             
-            std::ofstream outFile(currentOutputFile);
+            ofstream outFile(currentOutputFile);
             if (outFile.is_open()) {
                 outFile << "Feature1,Feature2,Cluster_ID\n";
                 const auto& realData = dataset.getData();
                 const auto& labels = ms.getLabels();
                 
-                for (std::size_t k = 0; k < realData.size(); ++k) {
-                    for (std::size_t d = 0; d < realData[k].size(); ++d) {
+                for (size_t k = 0; k < realData.size(); ++k) {
+                    for (size_t d = 0; d < realData[k].size(); ++d) {
                         outFile << realData[k][d] << ",";
                     }
                     outFile << labels[k] << "\n";
                 }
                 outFile.close();
-                std::cout << "-> Success!" << std::endl;
+                cout << "-> Success!" << endl;
                 filesProcessed++;
             } else {
-                std::cerr << "-> Warning: Could not open output file for writing!" << std::endl;
+                cerr << "-> Warning: Could not open output file for writing!" << endl;
             }
         }
     }
     
-    std::cout << "\n========================================" << std::endl;
-    std::cout << "Finished! " << filesProcessed << " files were successfully processed." << std::endl;
+    cout << "\n========================================" << endl;
+    cout << "Finished! " << filesProcessed << " files were successfully processed." << endl;
 
     return 0;
 }

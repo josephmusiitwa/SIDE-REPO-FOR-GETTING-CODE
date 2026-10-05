@@ -2,6 +2,8 @@
 #include <cmath>
 #include <algorithm>
 
+using namespace std;
+
 namespace meanshift {
 
 MeanShift::MeanShift(double bandwidth, double epsilon, int maxIterations)
@@ -9,14 +11,14 @@ MeanShift::MeanShift(double bandwidth, double epsilon, int maxIterations)
 
 double MeanShift::euclideanDistance(const Point& a, const Point& b) {
     double sum = 0.0;
-    for (std::size_t i = 0; i < a.size(); ++i) {
+    for (size_t i = 0; i < a.size(); ++i) {
         sum += (a[i] - b[i]) * (a[i] - b[i]);
     }
-    return std::sqrt(sum);
+    return sqrt(sum);
 }
 
 double MeanShift::gaussianKernel(double distance) const {
-    return std::exp(-0.5 * (distance * distance) / (bandwidth_ * bandwidth_));
+    return exp(-0.5 * (distance * distance) / (bandwidth_ * bandwidth_));
 }
 
 void MeanShift::estimateBandwidth(const Data& data) {
@@ -24,11 +26,11 @@ void MeanShift::estimateBandwidth(const Data& data) {
     
     // Simple heuristic: average distance between all pairs (or a subset)
     // To avoid O(N^2) on large datasets, we use a subset.
-    std::size_t numSamples = std::min<std::size_t>(500, data.size());
+    size_t numSamples = min<size_t>(500, data.size());
     double totalDist = 0;
     int count = 0;
-    for (std::size_t i = 0; i < numSamples; ++i) {
-        for (std::size_t j = i + 1; j < numSamples; ++j) {
+    for (size_t i = 0; i < numSamples; ++i) {
+        for (size_t j = i + 1; j < numSamples; ++j) {
             totalDist += euclideanDistance(data[i], data[j]);
             count++;
         }
@@ -46,14 +48,14 @@ Point MeanShift::shiftPoint(const Point& p, const Data& data) const {
         double dist = euclideanDistance(p, other_p);
         double weight = gaussianKernel(dist);
 
-        for (std::size_t i = 0; i < p.size(); ++i) {
+        for (size_t i = 0; i < p.size(); ++i) {
             numerator[i] += other_p[i] * weight;
         }
         denominator += weight;
     }
 
     if (denominator > 0) {
-        for (std::size_t i = 0; i < p.size(); ++i) {
+        for (size_t i = 0; i < p.size(); ++i) {
             shiftedP[i] = numerator[i] / denominator;
         }
     }
@@ -68,14 +70,14 @@ void MeanShift::fit(const Data& data) {
         estimateBandwidth(data);
     }
 
-    std::vector<Point> shiftedPoints = data;
-    std::vector<bool> stopMoving(data.size(), false);
+    vector<Point> shiftedPoints = data;
+    vector<bool> stopMoving(data.size(), false);
 
     for (int iter = 0; iter < maxIterations_; ++iter) {
         int maxDistMoved = 0;
         bool allStopped = true;
 
-        for (std::size_t i = 0; i < shiftedPoints.size(); ++i) {
+        for (size_t i = 0; i < shiftedPoints.size(); ++i) {
             if (stopMoving[i]) continue;
 
             Point newPoint = shiftPoint(shiftedPoints[i], data);
@@ -98,7 +100,7 @@ void MeanShift::fit(const Data& data) {
     clusters_.clear();
     labels_.assign(data.size(), -1);
 
-    for (std::size_t i = 0; i < shiftedPoints.size(); ++i) {
+    for (size_t i = 0; i < shiftedPoints.size(); ++i) {
         int clusterIdx = 0;
         bool found = false;
 
@@ -122,11 +124,11 @@ void MeanShift::fit(const Data& data) {
     }
 }
 
-const std::vector<Cluster>& MeanShift::getClusters() const {
+const vector<Cluster>& MeanShift::getClusters() const {
     return clusters_;
 }
 
-const std::vector<int>& MeanShift::getLabels() const {
+const vector<int>& MeanShift::getLabels() const {
     return labels_;
 }
 
@@ -137,7 +139,7 @@ double MeanShift::evaluate(const Data& data) const {
     double totalVariance = 0.0;
     for (const auto& cluster : clusters_) {
         double clusterVar = 0.0;
-        for (std::size_t idx : cluster.pointIndices) {
+        for (size_t idx : cluster.pointIndices) {
             clusterVar += euclideanDistance(data[idx], cluster.centroid);
         }
         totalVariance += clusterVar;

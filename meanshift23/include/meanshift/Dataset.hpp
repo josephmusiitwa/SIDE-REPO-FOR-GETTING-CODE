@@ -4,17 +4,19 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 namespace meanshift {
 
-using Point = std::vector<double>;
-using Data = std::vector<Point>;
+using Point = vector<double>;
+using Data = vector<Point>;
 
 class Dataset {
 public:
     Dataset();
 
     // Dataset loading from CSV
-    bool loadFromCSV(const std::string& filename, bool hasHeader = true);
+    bool loadFromCSV(const string& filename, bool hasHeader = true);
 
     // Get the raw data
     const Data& getData() const;

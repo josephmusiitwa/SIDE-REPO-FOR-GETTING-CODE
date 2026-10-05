@@ -5,14 +5,16 @@
 #include <string>
 #include <iomanip>
 
+using namespace std;
+
 int main() {
     meanshift::Dataset dataset;
     
     // Create some dummy data for the example if no CSV is provided
-    std::cout << "Creating dummy dataset for example..." << std::endl;
+    cout << "Creating dummy dataset for example..." << endl;
     // Assuming we could load: dataset.loadFromCSV("data/input/data.csv", true);
     
-    std::cout << "Running MeanShift clustering..." << std::endl;
+    cout << "Running MeanShift clustering..." << endl;
     meanshift::MeanShift ms(2.0, 1e-3, 300);
     
     // Dummy manual data
@@ -26,18 +28,18 @@ int main() {
     ms.fit(data);
     
     auto clusters = ms.getClusters();
-    std::cout << "Number of clusters found: " << clusters.size() << std::endl;
+    cout << "Number of clusters found: " << clusters.size() << endl;
     
     int i = 0;
     for (const auto& c : clusters) {
-        std::cout << "Cluster " << i++ << " centroid: (";
-        for (std::size_t d = 0; d < c.centroid.size(); ++d) {
-            std::cout << c.centroid[d] << (d == c.centroid.size() - 1 ? "" : ", ");
+        cout << "Cluster " << i++ << " centroid: (";
+        for (size_t d = 0; d < c.centroid.size(); ++d) {
+            cout << c.centroid[d] << (d == c.centroid.size() - 1 ? "" : ", ");
         }
-        std::cout << ") with " << c.pointIndices.size() << " points." << std::endl;
+        cout << ") with " << c.pointIndices.size() << " points." << endl;
     }
     
-    std::cout << "Clustering evaluation score (cohesion): " << ms.evaluate(data) << std::endl;
+    cout << "Clustering evaluation score (cohesion): " << ms.evaluate(data) << endl;
     
     return 0;
 }

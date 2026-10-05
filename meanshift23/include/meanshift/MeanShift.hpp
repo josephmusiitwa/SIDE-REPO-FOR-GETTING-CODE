@@ -5,11 +5,13 @@
 #include <vector>
 #include <cstddef>
 
+using namespace std;
+
 namespace meanshift {
 
 struct Cluster {
     Point centroid;
-    std::vector<std::size_t> pointIndices;
+    vector<size_t> pointIndices;
 };
 
 class MeanShift {
@@ -32,10 +34,10 @@ public:
     Point shiftPoint(const Point& p, const Data& data) const;
 
     // Get final clusters
-    const std::vector<Cluster>& getClusters() const;
+    const vector<Cluster>& getClusters() const;
 
     // Get assignments (cluster index for each point)
-    const std::vector<int>& getLabels() const;
+    const vector<int>& getLabels() const;
 
     // Cluster evaluation (e.g. Silhouette Score or simplified cohesion)
     double evaluate(const Data& data) const;
@@ -45,8 +47,8 @@ private:
     double epsilon_;
     int maxIterations_;
 
-    std::vector<Cluster> clusters_;
-    std::vector<int> labels_;
+    vector<Cluster> clusters_;
+    vector<int> labels_;
 };
 
 } // namespace meanshift

@@ -5,12 +5,14 @@
 #include <string>
 #include <iomanip>
 
+using namespace std;
+
 void testEuclideanDistance() {
     meanshift::Point p1 = {0.0, 0.0};
     meanshift::Point p2 = {3.0, 4.0};
     double dist = meanshift::MeanShift::euclideanDistance(p1, p2);
-    if (dist != 5.0) throw std::runtime_error("testEuclideanDistance failed");
-    std::cout << "testEuclideanDistance passed." << std::endl;
+    if (dist != 5.0) throw runtime_error("testEuclideanDistance failed");
+    cout << "testEuclideanDistance passed." << endl;
 }
 
 void testMeanShiftClustering() {
@@ -21,13 +23,15 @@ void testMeanShiftClustering() {
     };
     ms.fit(data);
     auto clusters = ms.getClusters();
-    if (clusters.size() != 2) throw std::runtime_error("testMeanShiftClustering failed");
-    std::cout << "testMeanShiftClustering passed." << std::endl;
+    if (clusters.size() != 2) throw runtime_error("testMeanShiftClustering failed");
+    cout << "testMeanShiftClustering passed." << endl;
 }
 
 int main() {
     testEuclideanDistance();
     testMeanShiftClustering();
-    std::cout << "All tests passed!" << std::endl;
+    cout << "All tests passed!" << endl;
     return 0;
 }
+
+

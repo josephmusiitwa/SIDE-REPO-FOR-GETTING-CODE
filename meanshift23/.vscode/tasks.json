@@ -1,0 +1,180 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Build MeanShift Example1 (C++23)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++23",
+                "-fmodules-ts",
+                "-I${workspaceFolder}/include",
+                "${workspaceFolder}/src/Dataset.cpp",
+                "${workspaceFolder}/src/MeanShift.cpp",
+                "${workspaceFolder}/examples/example1.cpp",
+                "-o",
+                "${workspaceFolder}/example1.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Compiles the dummy data example using C++23."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build MeanShift Example2 (External Data) (C++23)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++23",
+                "-fmodules-ts",
+                "-I${workspaceFolder}/include",
+                "${workspaceFolder}/src/Dataset.cpp",
+                "${workspaceFolder}/src/MeanShift.cpp",
+                "${workspaceFolder}/examples/example2.cpp",
+                "-o",
+                "${workspaceFolder}/example2.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Compiles the external data example using C++23."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build MeanShift Example3 (Read Only) (C++23)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++23",
+                "-fmodules-ts",
+                "-I${workspaceFolder}/include",
+                "${workspaceFolder}/src/Dataset.cpp",
+                "${workspaceFolder}/src/MeanShift.cpp",
+                "${workspaceFolder}/examples/example3.cpp",
+                "-o",
+                "${workspaceFolder}/example3.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Compiles the read-only external data example using C++23."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build MeanShift Example4 (Interactive) (C++23)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++23",
+                "-fmodules-ts",
+                "-I${workspaceFolder}/include",
+                "${workspaceFolder}/src/Dataset.cpp",
+                "${workspaceFolder}/src/MeanShift.cpp",
+                "${workspaceFolder}/examples/example4.cpp",
+                "-o",
+                "${workspaceFolder}/example4.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Compiles the interactive example using C++23."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build MeanShift Example5 (Batch Loop) (C++23)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++23",
+                "-fmodules-ts",
+                "-I${workspaceFolder}/include",
+                "${workspaceFolder}/src/Dataset.cpp",
+                "${workspaceFolder}/src/MeanShift.cpp",
+                "${workspaceFolder}/examples/example5.cpp",
+                "-o",
+                "${workspaceFolder}/example5.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Compiles the batch processing loop example using C++23."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build MeanShift Example6 (Auto-Scan Loop) (C++23)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++23",
+                "-fmodules-ts",
+                "-I${workspaceFolder}/include",
+                "${workspaceFolder}/src/Dataset.cpp",
+                "${workspaceFolder}/src/MeanShift.cpp",
+                "${workspaceFolder}/examples/example6.cpp",
+                "-o",
+                "${workspaceFolder}/example6.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Compiles the auto-scanning batch processing example using C++23."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build MeanShift Tests (C++23)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++23",
+                "-fmodules-ts",
+                "-I${workspaceFolder}/include",
+                "${workspaceFolder}/src/Dataset.cpp",
+                "${workspaceFolder}/src/MeanShift.cpp",
+                "${workspaceFolder}/tests/test_meanshift.cpp",
+                "-o",
+                "${workspaceFolder}/test_meanshift.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Compiles the tests using C++23."
+        }
+    ]
+}
+
+
+
+

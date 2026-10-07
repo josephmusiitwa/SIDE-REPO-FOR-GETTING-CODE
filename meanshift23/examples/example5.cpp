@@ -38,6 +38,7 @@ int main() {
         meanshift::MeanShift ms(2.0, 1e-3, 300);
         ms.fit(dataset.getData());
         
+        //number of clusters found
         cout << "-> Number of clusters found: " << ms.getClusters().size() << endl;
         cout << "-> Saving to: " << currentOutputFile << endl;
         

@@ -13,7 +13,8 @@ namespace fs = filesystem;
 int main() {
     string inputFolder = "data/input";
     string outputFolder = "data/output";
-    
+    // This is a sample comment
+    // T
     cout << "--- Auto-Scanning Batch Processor ---" << endl;
     cout << "Scanning folder: " << inputFolder << " for .csv files..." << endl;
 

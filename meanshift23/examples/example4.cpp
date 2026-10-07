@@ -10,7 +10,7 @@ using namespace std;
 int main() {
     string csvFilePath;
     string outFilePath;
-    
+// Interactive tool for MeanShift clustering
     cout << "--- MeanShift Clustering Interactive Tool ---" << endl;
     cout << "Please enter the path to your input CSV file (e.g., data/input/my_data.csv): ";
     cin >> csvFilePath;
@@ -19,6 +19,7 @@ int main() {
     cin >> outFilePath;
     
     meanshift::Dataset dataset;
+    // Load data from the specified CSV file
     cout << "\nLoading data from external CSV file: " << csvFilePath << endl;
     
     if (!dataset.loadFromCSV(csvFilePath, true)) {

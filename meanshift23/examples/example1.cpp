@@ -38,7 +38,7 @@ int main() {
         }
         cout << ") with " << c.pointIndices.size() << " points." << endl;
     }
-    
+    //happy
     cout << "Clustering evaluation score (cohesion): " << ms.evaluate(data) << endl;
     
     return 0;

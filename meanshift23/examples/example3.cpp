@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
         cout << ") with " << c.pointIndices.size() << " points." << endl;
     }
     
+    //clustering evaluation score
     cout << "Clustering evaluation score: " << ms.evaluate(dataset.getData()) << endl;
     
     // We intentionally stop here without writing anything to data/output/

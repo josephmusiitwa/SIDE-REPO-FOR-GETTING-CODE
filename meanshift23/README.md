@@ -32,6 +32,10 @@ You give the library a set of points (for example, rows from a CSV file). It giv
 | Run the whole clustering | `MeanShift::fit` |
 | Read the clusters and labels | `getClusters`, `getLabels` |
 | Cluster quality score | `MeanShift::evaluate` |
+| Any numeric type (`short`, `int`, `long`, `unsigned`, `int8_t`, `float`, `double`, `long double`, ...) | `BasicDataset<T>`, `BasicMeanShift<T, R, K>` |
+| Choice of kernel (Gaussian, Flat, Epanechnikov, or your own) | kernel policy `K` |
+
+The classes are C++20 **templates constrained by concepts** (`Numeric`, `RealNumber`, `KernelFunction`). The old names `Dataset`, `MeanShift`, `Point`, `Data` and `Cluster` still exist; they are the `double` versions. The full design, the concepts, the UML diagrams and the design questions are in [`docs/templates/TEMPLATES.md`](docs/templates/TEMPLATES.md).
 
 ## 4. Project structure
 
@@ -41,8 +45,10 @@ GROUP-21-PROJECT/
 ├── CMakeLists.txt        builds the library, examples and tests
 ├── LICENSE
 ├── .gitignore
-├── include/meanshift/    public headers (Dataset.hpp, MeanShift.hpp)
-├── src/                  implementation (Dataset.cpp, meanshift.cpp)
+├── include/meanshift/    public headers: Concepts.hpp, Kernels.hpp, Dataset.hpp, MeanShift.hpp
+│                         (template code lives in the headers)
+├── src/                  explicit instantiations for int, float, double
+├── docs/templates/       template design document and UML diagrams
 ├── tests/                unit tests (test_meanshift.cpp)
 ├── examples/             example1.cpp, example2.cpp, example3.cpp
 ├── data/input/           sample CSV files
@@ -104,6 +110,23 @@ After `fit()`:
 - `getLabels()` gives one cluster number per input row.
 - `evaluate()` gives the average distance from each point to its centre. Lower means tighter clusters.
 
+### Using other numeric types
+
+```cpp
+meanshift::BasicDataset<int> raw;                 // integer CSV values
+raw.loadFromCSV("data/input/students.csv");
+meanshift::BasicMeanShift<int> ms(5.0);           // int data, double maths
+ms.fit(raw.getData());                            // centroids are BasicPoint<double>
+
+auto scaled = raw.cast<double>();                 // standardize() needs a floating type
+scaled.standardize();
+
+meanshift::BasicMeanShift<float, float, meanshift::FlatKernel> flat(0.5f);
+flat.fit(scaled.cast<float>().getData());
+```
+
+`BasicDataset<int>::standardize()` and `BasicMeanShift<std::string>` are compile errors, and the error message names the concept that failed.
+
 ### Data format
 
 CSV files with one point per row and numbers separated by commas. A header row is skipped by default (pass `false` as the second argument if there is no header). Empty lines and values that are not numbers (such as names) are skipped, so `students.csv` can keep a name column.
@@ -152,18 +175,24 @@ cd build
 ctest --output-on-failure
 ```
 
-There are 10 unit tests in `tests/test_meanshift.cpp`. They check distance, clustering, one shift step, bandwidth estimation, labels, the quality score, empty data, CSV loading (including a missing file), Z-score scaling and Min-Max scaling. Tests that need files create and delete their own temporary CSV, so they can be run from any folder.
+`tests/test_meanshift.cpp` has two layers:
+
+- **Compile-time tests** (`static_assert`) check that the concepts accept every numeric type and reject `bool`, `char`, `std::string` and pointers. They also check that `standardize()` is unavailable for integer datasets.
+- **Typed tests**: each test is a function template run for 13 types (`short` ... `long double`). Together they cover distance (including the unsigned wrap-around case), kernels, shifting, clustering, labels, bandwidth estimation, evaluation, empty data, CSV parsing per type, scaling and the old `double` API. In total there are 865 checks.
+
+Tests that need files create and delete their own temporary CSV, so they can be run from any folder.
 
 ## 10. Limitations
 
 - Each step compares a point with every other point, so it gets slow on very large data.
-- Only the Gaussian kernel is available.
+- Kernels are chosen at compile time (template parameter), not at run time.
 - The automatic bandwidth is a simple guess (half the average distance between points, using at most the first 500 points).
 - `evaluate()` measures only how tight clusters are, not how well separated they are.
 - The library does not check that every row has the same number of values. Rows of different length can cause errors.
 - The examples write the header `Feature1,Feature2,Cluster_ID`, so the header is wrong if your file has a different number of features.
 - `example3` does not accept file paths with spaces.
-- The project needs a compiler with C++23 support.
+- The project needs a compiler with C++23 support (concepts and `std::from_chars` for floating-point types are used).
+- `long long` values above 2^53 lose precision, because the default compute type for integers is `double`.
 
 ## 11. Contributions by group members
 

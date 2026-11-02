@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="698" viewBox="0 0 1600 698">
+
+<defs>
+  <marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+    <path d="M1,1 L11,6 L1,11" fill="none" stroke="context-stroke" stroke-width="1.5"/></marker>
+  <marker id="hollow" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+    <path d="M1,1 L13,7 L1,13 Z" fill="#ffffff" stroke="context-stroke" stroke-width="1.4"/></marker>
+  <marker id="diamond" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse">
+    <path d="M1,5 L8,1 L15,5 L8,9 Z" fill="#333"/></marker>
+</defs>
+<style>
+  text { white-space: pre; font-family: 'DejaVu Sans Mono', Consolas, Menlo, monospace; font-size: 12.5px; fill: #1d1d1d; }
+  .name { font-weight: bold; font-size: 14px; }
+  .stereo { font-style: italic; fill: #555; }
+  .tparam { font-size: 12px; fill: #1d1d1d; }
+  .static { text-decoration: underline; }
+  .label { font-size: 11.5px; font-style: italic; }
+  .title { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 20px; font-weight: bold; }
+  .sub { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 13px; fill: #555; }
+  .legend { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 12px; }
+</style>
+<rect width="1600" height="698" fill="#ffffff"/>
+<text x="30" y="36" class="title">Type flow: int data through the templates</text>
+<text x="30" y="58" class="sub">Which instantiation is produced at each step, and what the concepts allow or forbid</text>
+<rect x="30" y="120" width="210" height="117" fill="#fdecea" stroke="#b23b2e" stroke-width="1.5" rx="3"/>
+<text x="135.0" y="141" text-anchor="middle" class="stereo">input</text>
+<text x="135.0" y="158" text-anchor="middle" class="name">CSV text</text>
+<line x1="30" y1="170" x2="240" y2="170" stroke="#b23b2e"/>
+<text x="40" y="191" class="member">Name,Math,Science</text>
+<text x="40" y="208" class="member">John,85,92</text>
+<text x="40" y="225" class="member">Sarah,88,94</text>
+<rect x="330" y="120" width="290" height="151" fill="#fdf6e3" stroke="#a07400" stroke-width="1.5" rx="3"/>
+<text x="475.0" y="141" text-anchor="middle" class="stereo">«function template»</text>
+<text x="475.0" y="158" text-anchor="middle" class="name">parseNumber&lt;int&gt;</text>
+<line x1="330" y1="170" x2="620" y2="170" stroke="#a07400"/>
+<text x="340" y="191" class="member">from_chars(text, int&amp;)</text>
+<text x="340" y="208" class="member">&quot;85&quot;   -&gt; 85</text>
+<text x="340" y="225" class="member">&quot;John&quot; -&gt; skipped</text>
+<text x="340" y="242" class="member">&quot;2.5&quot;  -&gt; rejected</text>
+<text x="340" y="259" class="member">&quot;9e9&quot;  -&gt; rejected (range)</text>
+<rect x="720" y="120" width="300" height="117" fill="#e8f1fb" stroke="#2f6db5" stroke-width="1.5" rx="3"/>
+<text x="870.0" y="141" text-anchor="middle" class="stereo">«bind» T → int</text>
+<text x="870.0" y="158" text-anchor="middle" class="name">BasicDataset&lt;int&gt;</text>
+<line x1="720" y1="170" x2="1020" y2="170" stroke="#2f6db5"/>
+<text x="730" y="191" class="member">getData() : BasicData&lt;int&gt;</text>
+<text x="730" y="208" class="member">standardize()  ✗ not available</text>
+<text x="730" y="225" class="member">cast&lt;double&gt;() ✓</text>
+<rect x="1120" y="120" width="460" height="134" fill="#e8f1fb" stroke="#2f6db5" stroke-width="1.5" rx="3"/>
+<text x="1350.0" y="141" text-anchor="middle" class="stereo">«bind» T → int, R → double, K → Gaussian</text>
+<text x="1350.0" y="158" text-anchor="middle" class="name">BasicMeanShift&lt;int&gt;</text>
+<line x1="1120" y1="170" x2="1580" y2="170" stroke="#2f6db5"/>
+<text x="1130" y="191" class="member">fit(BasicData&lt;int&gt;)</text>
+<text x="1130" y="208" class="member">  shiftedPoints : vector&lt;BasicPoint&lt;double&gt;&gt;</text>
+<text x="1130" y="225" class="member">  distance: static_cast&lt;double&gt;(a[i]) - ...</text>
+<text x="1130" y="242" class="member">evaluate(...) : double</text>
+<rect x="1120" y="334" width="460" height="100" fill="#e8f1fb" stroke="#2f6db5" stroke-width="1.5" rx="3"/>
+<text x="1350.0" y="355" text-anchor="middle" class="stereo">«bind» R → double</text>
+<text x="1350.0" y="372" text-anchor="middle" class="name">BasicCluster&lt;double&gt;</text>
+<line x1="1120" y1="384" x2="1580" y2="384" stroke="#2f6db5"/>
+<text x="1130" y="405" class="member">centroid = {86.5, 93.0}   (real-valued mean)</text>
+<text x="1130" y="422" class="member">pointIndices = {0, 1}</text>
+<rect x="720" y="317" width="300" height="100" fill="#e8f1fb" stroke="#2f6db5" stroke-width="1.5" rx="3"/>
+<text x="870.0" y="338" text-anchor="middle" class="stereo">«bind» T → double</text>
+<text x="870.0" y="355" text-anchor="middle" class="name">BasicDataset&lt;double&gt;</text>
+<line x1="720" y1="367" x2="1020" y2="367" stroke="#2f6db5"/>
+<text x="730" y="388" class="member">standardize() ✓</text>
+<text x="730" y="405" class="member">normalize()   ✓</text>
+<rect x="30" y="507" width="990" height="151" fill="#f1eafb" stroke="#6b3fb0" stroke-width="1.5" rx="3"/>
+<text x="525.0" y="528" text-anchor="middle" class="stereo">compile-time decisions (no run-time cost)</text>
+<text x="525.0" y="545" text-anchor="middle" class="name">What the compiler checks for T = int</text>
+<line x1="30" y1="557" x2="1020" y2="557" stroke="#6b3fb0"/>
+<text x="40" y="578" class="member">Numeric&lt;int&gt;               ✓  -&gt; BasicDataset&lt;int&gt;, BasicMeanShift&lt;int&gt; are allowed</text>
+<text x="40" y="595" class="member">RealNumber&lt;int&gt;            ✗  -&gt; standardize()/normalize() removed from BasicDataset&lt;int&gt;</text>
+<text x="40" y="612" class="member">default_real_t&lt;int&gt;        =  double  -&gt; centroids, distances, evaluate() use double</text>
+<text x="40" y="629" class="member">KernelFunction&lt;Gaussian, double&gt;  ✓</text>
+<text x="40" y="646" class="member">Numeric&lt;std::string&gt;       ✗  -&gt; BasicMeanShift&lt;std::string&gt; is a compile error naming the concept</text>
+<polyline points="240,178.5 330,195.5" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)"/>
+<text x="285.0" y="168.5" text-anchor="middle" class="label" fill="#333">each cell</text>
+<polyline points="620,195.5 720,178.5" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)"/>
+<text x="670.0" y="185.5" text-anchor="middle" class="label" fill="#333">loadFromCSV</text>
+<polyline points="1020,178.5 1120,187.0" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)"/>
+<text x="1070.0" y="168.5" text-anchor="middle" class="label" fill="#333">getData()</text>
+<polyline points="1350.0,254 1350.0,334" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)" marker-start="url(#diamond)"/>
+<text x="1360.0" y="298" text-anchor="start" class="label" fill="#333">getClusters()</text>
+<polyline points="870.0,237 870.0,317" fill="none" stroke="#666" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="880.0" y="281" text-anchor="start" class="label" fill="#666">cast&lt;double&gt;()</text>
+<polyline points="1020,367.0 1070,367.0 1070,242 1120,242" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)"/>
+<text x="1028" y="439" text-anchor="start" class="label" fill="#333">or: BasicMeanShift&lt;double&gt;</text>
+<text x="1028" y="454" text-anchor="start" class="label" fill="#333">on the scaled data</text>
+</svg>

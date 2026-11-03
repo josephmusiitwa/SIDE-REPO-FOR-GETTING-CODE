@@ -1,7 +1,7 @@
 {
-<<<<<<< HEAD
-    "cmake.sourceDirectory": "/home/mark-jordan/Documents/repos/SIDE-REPO-FOR-GETTING-CODE/meanshift23"
-=======
-    "cmake.sourceDirectory": "C:/Users/josep/OneDrive/Desktop/SIDE REPO/SIDE-REPO-FOR-GETTING-CODE/meanshift23"
->>>>>>> 5d907beab4d2c8b83373866ae00c13b28e1c45f5
+    "cmake.sourceDirectory": "${workspaceFolder}/meanshift23",
+    "C_Cpp.default.cppStandard": "c++23",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/meanshift23/include"
+    ]
 }

@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1305" viewBox="0 0 1600 1305">
+
+<defs>
+  <marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+    <path d="M1,1 L11,6 L1,11" fill="none" stroke="context-stroke" stroke-width="1.5"/></marker>
+  <marker id="hollow" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+    <path d="M1,1 L13,7 L1,13 Z" fill="#ffffff" stroke="context-stroke" stroke-width="1.4"/></marker>
+  <marker id="diamond" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse">
+    <path d="M1,5 L8,1 L15,5 L8,9 Z" fill="#333"/></marker>
+</defs>
+<style>
+  text { white-space: pre; font-family: 'DejaVu Sans Mono', Consolas, Menlo, monospace; font-size: 12.5px; fill: #1d1d1d; }
+  .name { font-weight: bold; font-size: 14px; }
+  .stereo { font-style: italic; fill: #555; }
+  .tparam { font-size: 12px; fill: #1d1d1d; }
+  .static { text-decoration: underline; }
+  .label { font-size: 11.5px; font-style: italic; }
+  .title { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 20px; font-weight: bold; }
+  .sub { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 13px; fill: #555; }
+  .legend { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 12px; }
+</style>
+<rect width="1600" height="1305" fill="#ffffff"/>
+<text x="30" y="36" class="title">MeanShift library: class templates and concepts</text>
+<text x="30" y="58" class="sub">Group 21 · namespace meanshift · dashed box at the top-right = template parameters, each constrained by a concept</text>
+<polyline points="129.0,337 129.0,443 469.3,443 469.3,483" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="137.0" y="367" text-anchor="start" class="label" fill="#6b3fb0">«constrains T»</text>
+<polyline points="294.0,337 294.0,429 864.5759999999999,429 864.5759999999999,449" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="302.0" y="423" text-anchor="start" class="label" fill="#6b3fb0">«constrains T»</text>
+<polyline points="525.0,303 525.0,404 915.0999999999999,404 915.0999999999999,449" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="533.0" y="398" text-anchor="start" class="label" fill="#6b3fb0">«constrains R»</text>
+<polyline points="937.5,320 937.5,379 1004.26,379 1004.26,449" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="945.5" y="342" text-anchor="start" class="label" fill="#6b3fb0">«default for R»</text>
+<polyline points="1207.0,337 1207.0,429 1093.4199999999998,429 1093.4199999999998,449" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="1215.0" y="359" text-anchor="start" class="label" fill="#6b3fb0">«constrains K»</text>
+<polyline points="1530,600.0 1555,600.0 1555,377 1492.0,377 1492.0,337" fill="none" stroke="#2e7d43" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#hollow)"/>
+<polyline points="1530,722.0 1555,722.0 1555,377 1492.0,377 1492.0,337" fill="none" stroke="#2e7d43" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#hollow)"/>
+<polyline points="1530,844.0 1555,844.0 1555,377 1492.0,377 1492.0,337" fill="none" stroke="#2e7d43" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#hollow)"/>
+<text x="1385" y="367" class="label" fill="#2e7d43">«realize»</text>
+<polyline points="1120,558.2 1200,590.0" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)" marker-start="url(#diamond)"/>
+<text x="1126" y="550.2" text-anchor="start" class="label" fill="#333">kernel_  1</text>
+<polyline points="840.0,888 820.0,978" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)" marker-start="url(#diamond)"/>
+<text x="850.0" y="918" text-anchor="start" class="label" fill="#333">clusters_</text>
+<text x="850.0" y="933" text-anchor="start" class="label" fill="#333">0..*</text>
+<polyline points="604.8,888 604.8,778 406.0,778 406.0,808" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="550" y="770" text-anchor="end" class="label" fill="#6b3fb0">«uses» data : BasicData&lt;T&gt;</text>
+<polyline points="171.0,718 171.0,808" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)" marker-start="url(#diamond)"/>
+<text x="181.0" y="758" text-anchor="start" class="label" fill="#333">data_</text>
+<polyline points="1075.2,888 1075.2,1013.1 1150,1013.1" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="1083.2" y="918" text-anchor="start" class="label" fill="#6b3fb0">«calls»</text>
+<polyline points="150.0,1165 150.0,1135 18,1135 18,540 30,540" fill="none" stroke="#666" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<polyline points="410.0,1165 410.0,925" fill="none" stroke="#666" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<polyline points="722.5,1165 722.5,1125 540,1125 540,560 560,560" fill="none" stroke="#666" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<polyline points="1130.0,1165 1130.0,1028.0 1000,1028.0" fill="none" stroke="#666" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<rect x="30" y="220" width="330" height="117" fill="#f1eafb" stroke="#6b3fb0" stroke-width="1.5" rx="3"/>
+<text x="195.0" y="241" text-anchor="middle" class="stereo">«concept»</text>
+<text x="195.0" y="258" text-anchor="middle" class="name">Numeric&lt;T&gt;</text>
+<line x1="30" y1="270" x2="360" y2="270" stroke="#6b3fb0"/>
+<text x="40" y="291" class="member">is_arithmetic_v&lt;T&gt;</text>
+<text x="40" y="308" class="member">&amp;&amp; !same_as&lt;T, bool&gt;</text>
+<text x="40" y="325" class="member">&amp;&amp; !CharacterType&lt;T&gt;</text>
+<rect x="400" y="220" width="250" height="83" fill="#f1eafb" stroke="#6b3fb0" stroke-width="1.5" rx="3"/>
+<text x="525.0" y="241" text-anchor="middle" class="stereo">«concept»</text>
+<text x="525.0" y="258" text-anchor="middle" class="name">RealNumber&lt;T&gt;</text>
+<line x1="400" y1="270" x2="650" y2="270" stroke="#6b3fb0"/>
+<text x="410" y="291" class="member">std::floating_point&lt;T&gt;</text>
+<rect x="690" y="220" width="330" height="100" fill="#fdf6e3" stroke="#a07400" stroke-width="1.5" rx="3"/>
+<text x="855.0" y="241" text-anchor="middle" class="stereo">«alias template»</text>
+<text x="855.0" y="258" text-anchor="middle" class="name">default_real_t&lt;T : Numeric&gt;</text>
+<line x1="690" y1="270" x2="1020" y2="270" stroke="#a07400"/>
+<text x="700" y="291" class="member">floating T  -&gt;  T</text>
+<text x="700" y="308" class="member">integral T  -&gt;  double</text>
+<rect x="1150" y="220" width="380" height="117" fill="#f1eafb" stroke="#6b3fb0" stroke-width="1.5" rx="3"/>
+<text x="1340.0" y="241" text-anchor="middle" class="stereo">«concept»</text>
+<text x="1340.0" y="258" text-anchor="middle" class="name">KernelFunction&lt;K, R&gt;</text>
+<line x1="1150" y1="270" x2="1530" y2="270" stroke="#6b3fb0"/>
+<text x="1160" y="291" class="member">RealNumber&lt;R&gt;</text>
+<text x="1160" y="308" class="member">&amp;&amp; default_initializable&lt;K&gt;</text>
+<text x="1160" y="325" class="member">&amp;&amp; k(d, h) -&gt; convertible_to&lt;R&gt;</text>
+<rect x="30" y="500" width="470" height="218" fill="#e8f1fb" stroke="#2f6db5" stroke-width="1.5" rx="3"/>
+<text x="265.0" y="521" text-anchor="middle" class="name">BasicDataset</text>
+<line x1="30" y1="533" x2="500" y2="533" stroke="#2f6db5"/>
+<text x="40" y="554" class="member">- data_ : BasicData&lt;T&gt;</text>
+<line x1="30" y1="566" x2="500" y2="566" stroke="#2f6db5"/>
+<text x="40" y="587" class="member">+ BasicDataset()</text>
+<text x="40" y="604" class="member">+ BasicDataset(data : BasicData&lt;T&gt;)</text>
+<text x="40" y="621" class="member">+ loadFromCSV(file : string,</text>
+<text x="40" y="638" class="member">              hasHeader : bool = true) : bool</text>
+<text x="40" y="655" class="member">+ getData() : const BasicData&lt;T&gt;&amp;</text>
+<text x="40" y="672" class="member">+ standardize()  requires RealNumber&lt;T&gt;</text>
+<text x="40" y="689" class="member">+ normalize()    requires RealNumber&lt;T&gt;</text>
+<text x="40" y="706" class="member">+ cast&lt;U : Numeric&gt;() : BasicDataset&lt;U&gt;</text>
+<rect x="420.6" y="483" width="97.4" height="27" fill="#ffffff" stroke="#2f6db5" stroke-dasharray="5 3" stroke-width="1.3"/>
+<text x="428.6" y="501" class="tparam">T : Numeric</text>
+<rect x="560" y="500" width="560" height="388" fill="#e8f1fb" stroke="#2f6db5" stroke-width="1.5" rx="3"/>
+<text x="840.0" y="521" text-anchor="middle" class="name">BasicMeanShift</text>
+<line x1="560" y1="533" x2="1120" y2="533" stroke="#2f6db5"/>
+<text x="570" y="554" class="member">- bandwidth_ : R</text>
+<text x="570" y="571" class="member">- epsilon_ : R</text>
+<text x="570" y="588" class="member">- maxIterations_ : int</text>
+<text x="570" y="605" class="member">- kernel_ : K</text>
+<text x="570" y="622" class="member">- clusters_ : vector&lt;BasicCluster&lt;R&gt;&gt;</text>
+<text x="570" y="639" class="member">- labels_ : vector&lt;int&gt;</text>
+<line x1="560" y1="651" x2="1120" y2="651" stroke="#2f6db5"/>
+<text x="570" y="672" class="member">+ BasicMeanShift(bandwidth : R = -1,</text>
+<text x="570" y="689" class="member">                 epsilon : R = 1e-3, maxIter : int = 300)</text>
+<text x="570" y="706" class="member static">+ euclideanDistance&lt;A, B&gt;(a, b) : R</text>
+<text x="570" y="723" class="member">+ gaussianKernel(d : R) : R</text>
+<text x="570" y="740" class="member">+ kernelWeight(d : R) : R</text>
+<text x="570" y="757" class="member">+ getBandwidth() : R</text>
+<text x="570" y="774" class="member">+ estimateBandwidth(data : BasicData&lt;T&gt;)</text>
+<text x="570" y="791" class="member">+ fit(data : BasicData&lt;T&gt;)</text>
+<text x="570" y="808" class="member">+ shiftPoint&lt;U : Numeric&gt;(p : BasicPoint&lt;U&gt;,</text>
+<text x="570" y="825" class="member">                data : BasicData&lt;T&gt;) : BasicPoint&lt;R&gt;</text>
+<text x="570" y="842" class="member">+ getClusters() : const vector&lt;BasicCluster&lt;R&gt;&gt;&amp;</text>
+<text x="570" y="859" class="member">+ getLabels() : const vector&lt;int&gt;&amp;</text>
+<text x="570" y="876" class="member">+ evaluate(data : BasicData&lt;T&gt;) : R</text>
+<rect x="840.8" y="449" width="297.2" height="61" fill="#ffffff" stroke="#2f6db5" stroke-dasharray="5 3" stroke-width="1.3"/>
+<text x="848.8" y="467" class="tparam">T : Numeric</text>
+<text x="848.8" y="484" class="tparam">R : RealNumber = default_real_t&lt;T&gt;</text>
+<text x="848.8" y="501" class="tparam">K : KernelFunction&lt;R&gt; = GaussianKernel</text>
+<rect x="1200" y="550" width="330" height="100" fill="#e9f6ec" stroke="#2e7d43" stroke-width="1.5" rx="3"/>
+<text x="1365.0" y="571" text-anchor="middle" class="stereo">«struct»</text>
+<text x="1365.0" y="588" text-anchor="middle" class="name">GaussianKernel</text>
+<line x1="1200" y1="600" x2="1530" y2="600" stroke="#2e7d43"/>
+<text x="1210" y="621" class="member">+ operator()&lt;R&gt;(d : R, h : R) : R</text>
+<text x="1210" y="638" class="member">  exp(-d² / 2h²)</text>
+<rect x="1200" y="672" width="330" height="100" fill="#e9f6ec" stroke="#2e7d43" stroke-width="1.5" rx="3"/>
+<text x="1365.0" y="693" text-anchor="middle" class="stereo">«struct»</text>
+<text x="1365.0" y="710" text-anchor="middle" class="name">FlatKernel</text>
+<line x1="1200" y1="722" x2="1530" y2="722" stroke="#2e7d43"/>
+<text x="1210" y="743" class="member">+ operator()&lt;R&gt;(d : R, h : R) : R</text>
+<text x="1210" y="760" class="member">  d &lt;= h ? 1 : 0</text>
+<rect x="1200" y="794" width="330" height="100" fill="#e9f6ec" stroke="#2e7d43" stroke-width="1.5" rx="3"/>
+<text x="1365.0" y="815" text-anchor="middle" class="stereo">«struct»</text>
+<text x="1365.0" y="832" text-anchor="middle" class="name">EpanechnikovKernel</text>
+<line x1="1200" y1="844" x2="1530" y2="844" stroke="#2e7d43"/>
+<text x="1210" y="865" class="member">+ operator()&lt;R&gt;(d : R, h : R) : R</text>
+<text x="1210" y="882" class="member">  1 - (d/h)²  if d &lt;= h</text>
+<rect x="640" y="978" width="360" height="100" fill="#e8f1fb" stroke="#2f6db5" stroke-width="1.5" rx="3"/>
+<text x="820.0" y="999" text-anchor="middle" class="stereo">«struct»</text>
+<text x="820.0" y="1016" text-anchor="middle" class="name">BasicCluster</text>
+<line x1="640" y1="1028" x2="1000" y2="1028" stroke="#2f6db5"/>
+<text x="650" y="1049" class="member">+ centroid : BasicPoint&lt;R&gt;</text>
+<text x="650" y="1066" class="member">+ pointIndices : vector&lt;size_t&gt;</text>
+<rect x="898.4" y="961" width="119.60000000000001" height="27" fill="#ffffff" stroke="#2f6db5" stroke-dasharray="5 3" stroke-width="1.3"/>
+<text x="906.4" y="979" class="tparam">R : RealNumber</text>
+<rect x="30" y="808" width="470" height="117" fill="#fdecea" stroke="#b23b2e" stroke-width="1.5" rx="3"/>
+<text x="265.0" y="829" text-anchor="middle" class="stereo">«alias templates»</text>
+<text x="265.0" y="846" text-anchor="middle" class="name">BasicPoint&lt;T&gt; / BasicData&lt;T&gt;</text>
+<line x1="30" y1="858" x2="500" y2="858" stroke="#b23b2e"/>
+<text x="40" y="879" class="member">BasicPoint&lt;T : Numeric&gt; = vector&lt;T&gt;</text>
+<text x="40" y="896" class="member">BasicData&lt;T : Numeric&gt;  = vector&lt;BasicPoint&lt;T&gt;&gt;</text>
+<text x="40" y="913" class="member">parseNumber&lt;T&gt;(text, out) : bool   (from_chars)</text>
+<rect x="1150" y="978" width="380" height="117" fill="#fdf6e3" stroke="#a07400" stroke-width="1.5" rx="3"/>
+<text x="1340.0" y="999" text-anchor="middle" class="stereo">«function template»</text>
+<text x="1340.0" y="1016" text-anchor="middle" class="name">euclideanDistance</text>
+<line x1="1150" y1="1028" x2="1530" y2="1028" stroke="#a07400"/>
+<text x="1160" y="1049" class="member">&lt;R : RealNumber, A : Numeric, B : Numeric&gt;</text>
+<text x="1160" y="1066" class="member">(a : BasicPoint&lt;A&gt;, b : BasicPoint&lt;B&gt;) : R</text>
+<text x="1160" y="1083" class="member">casts to R before subtracting</text>
+<rect x="30" y="1165" width="300" height="83" fill="#f2f2f2" stroke="#666666" stroke-width="1.5" rx="3"/>
+<text x="180.0" y="1186" text-anchor="middle" class="stereo">«bind» T → double</text>
+<text x="180.0" y="1203" text-anchor="middle" class="name">Dataset</text>
+<line x1="30" y1="1215" x2="330" y2="1215" stroke="#666666"/>
+<text x="40" y="1236" class="member">= BasicDataset&lt;double&gt;</text>
+<rect x="350" y="1165" width="300" height="100" fill="#f2f2f2" stroke="#666666" stroke-width="1.5" rx="3"/>
+<text x="500.0" y="1186" text-anchor="middle" class="stereo">«bind» T → double</text>
+<text x="500.0" y="1203" text-anchor="middle" class="name">Point / Data</text>
+<line x1="350" y1="1215" x2="650" y2="1215" stroke="#666666"/>
+<text x="360" y="1236" class="member">= BasicPoint&lt;double&gt;</text>
+<text x="360" y="1253" class="member">= BasicData&lt;double&gt;</text>
+<rect x="670" y="1165" width="350" height="83" fill="#f2f2f2" stroke="#666666" stroke-width="1.5" rx="3"/>
+<text x="845.0" y="1186" text-anchor="middle" class="stereo">«bind» T, R → double; K → Gaussian</text>
+<text x="845.0" y="1203" text-anchor="middle" class="name">MeanShift</text>
+<line x1="670" y1="1215" x2="1020" y2="1215" stroke="#666666"/>
+<text x="680" y="1236" class="member">= BasicMeanShift&lt;double&gt;</text>
+<rect x="1040" y="1165" width="300" height="83" fill="#f2f2f2" stroke="#666666" stroke-width="1.5" rx="3"/>
+<text x="1190.0" y="1186" text-anchor="middle" class="stereo">«bind» R → double</text>
+<text x="1190.0" y="1203" text-anchor="middle" class="name">Cluster</text>
+<line x1="1040" y1="1215" x2="1340" y2="1215" stroke="#666666"/>
+<text x="1050" y="1236" class="member">= BasicCluster&lt;double&gt;</text>
+<rect x="1260" y="18" width="320" height="176" fill="#fff" stroke="#ccc"/>
+<rect x="1270" y="26" width="22" height="12" fill="#e8f1fb" stroke="#2f6db5"/>
+<text x="1300" y="37" class="legend">class template</text>
+<rect x="1270" y="44" width="22" height="12" fill="#f1eafb" stroke="#6b3fb0"/>
+<text x="1300" y="55" class="legend">concept (C++20)</text>
+<rect x="1270" y="62" width="22" height="12" fill="#e9f6ec" stroke="#2e7d43"/>
+<text x="1300" y="73" class="legend">kernel policy (plain struct)</text>
+<rect x="1270" y="80" width="22" height="12" fill="#f2f2f2" stroke="#666666"/>
+<text x="1300" y="91" class="legend">alias / «bind» instance</text>
+<rect x="1270" y="98" width="22" height="12" fill="#fdf6e3" stroke="#a07400"/>
+<text x="1300" y="109" class="legend">free function template</text>
+<polyline points="1270,126 1300,126" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#open)" marker-start="url(#diamond)"/>
+<text x="1308" y="130" class="legend">composition (owns)</text>
+<polyline points="1270,144 1300,144" fill="none" stroke="#2e7d43" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#hollow)"/>
+<text x="1308" y="148" class="legend">realizes concept</text>
+<polyline points="1270,162 1300,162" fill="none" stroke="#6b3fb0" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="1308" y="166" class="legend">constrained by / uses</text>
+<polyline points="1270,180 1300,180" fill="none" stroke="#666" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="1308" y="184" class="legend">«bind» template instance</text>
+</svg>

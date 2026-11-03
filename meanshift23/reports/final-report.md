@@ -3,7 +3,7 @@
 **Group 21 · Mean Shift Clustering Library in C++ (`meanshift`)**
 Topic: Machine Learning 13 — Design and Implementation of the Mean Shift Clustering Algorithm in C++
 Repository: https://github.com/josephmusiitwa/GROUP-21-PROJECT
-Submission date: 5 November 2026
+Submission date: 3rd November, 2026
 
 ---
 
@@ -56,29 +56,26 @@ GROUP-21-PROJECT/
 
 All code is inside `namespace meanshift`. Two type names are used everywhere: `Point` (a `vector<double>`) and `Data` (a `vector<Point>`).
 
-### 4.2 The classes (the lecturer's five questions)
+### 4.2 The classes 
 
 **Class 1: `Dataset`**
-
-| Question | Answer |
-| :--- | :--- |
-| What is the class? | `meanshift::Dataset` (`Dataset.hpp`, `Dataset.cpp`). |
-| Why do we need it? | To keep reading and preparing data in one place, separate from the clustering. |
-| What data does it hold? | One member: `data_`, all the points read from the CSV file. |
-| What functions operate on it? | `loadFromCSV()` fills it. `standardize()` and `normalize()` rescale it. `getData()` lets others read it. |
-| Private or public, and how is it used? | `data_` is private so nothing outside the class can change the points by accident. The functions are public because they are how users work with the class. `getData()` returns a `const` reference, so callers can read but not change the data. Usage: create a `Dataset`, call `loadFromCSV()`, optionally scale, then pass `getData()` to `MeanShift`. |
+`meanshift::Dataset` (`Dataset.hpp`, `Dataset.cpp`). 
+To keep reading and preparing data in one place, separate from the clustering. 
+It holds one member: `data_`, all the points read from the CSV file. 
+Functions:`loadFromCSV()` fills it. `standardize()` and `normalize()` rescale it. `getData()` lets others read it. 
+`data_` is private so nothing outside the class can change the points by accident. The functions are public because they are how users work with the class. `getData()` returns a `const` reference, so callers can read but not change the data. 
+Usage: create a `Dataset`, call `loadFromCSV()`, optionally scale, then pass `getData()` to `MeanShift`. 
 
 **Class 2: `MeanShift`**
+`meanshift::MeanShift` (`MeanShift.hpp`, `meanshift.cpp`). 
+To keep the algorithm and its settings together. The user sets the settings once, calls `fit()`, then reads the results. 
+It holds Settings: `bandwidth_`, `epsilon_`, `maxIterations_`. Results: `clusters_`, `labels_`. 
+The constructor sets the settings. `estimateBandwidth()` picks a bandwidth. `gaussianKernel()` weights a neighbour. `shiftPoint()` does one mean shift step. `fit()` runs the whole algorithm. `getClusters()`, `getLabels()` and `evaluate()` read the results. 
+Settings and results are private, so the results always match the settings that produced them. The small maths functions are public so they can be tested one by one. `euclideanDistance()` is `static` because it needs only two points and no object data. 
+Usage: construct, `fit(data)`, read results. `MeanShift` needs only the `Data` type, not `Dataset`, so it can cluster data from any source. 
 
-| Question | Answer |
-| :--- | :--- |
-| What is the class? | `meanshift::MeanShift` (`MeanShift.hpp`, `meanshift.cpp`). |
-| Why do we need it? | To keep the algorithm and its settings together. The user sets the settings once, calls `fit()`, then reads the results. |
-| What data does it hold? | Settings: `bandwidth_`, `epsilon_`, `maxIterations_`. Results: `clusters_`, `labels_`. |
-| What functions operate on it? | The constructor sets the settings. `estimateBandwidth()` picks a bandwidth. `gaussianKernel()` weights a neighbour. `shiftPoint()` does one mean shift step. `fit()` runs the whole algorithm. `getClusters()`, `getLabels()` and `evaluate()` read the results. |
-| Private or public, and how is it used? | Settings and results are private, so the results always match the settings that produced them. The small maths functions are public so they can be tested one by one. `euclideanDistance()` is `static` because it needs only two points and no object data. Usage: construct, `fit(data)`, read results. `MeanShift` needs only the `Data` type, not `Dataset`, so it can cluster data from any source. |
-
-**Struct: `Cluster`** — a plain struct with two public members, `centroid` (a `Point`) and `pointIndices` (which rows belong to it). It is a simple bundle of result data with no behaviour, so a struct is enough. Callers get it through a `const` reference.
+**Struct: `Cluster`** 
+This is a plain struct with two public members, `centroid` (a `Point`) and `pointIndices` (which rows belong to it). It is a simple bundle of result data with no behaviour, so a struct is enough. Callers get it through a `const` reference.
 
 ### 4.3 Encapsulation, inheritance and polymorphism
 
@@ -86,26 +83,17 @@ All code is inside `namespace meanshift`. Two type names are used everywhere: `P
 - **Inheritance:** our own classes do not inherit from each other. `Dataset` and `MeanShift` do different jobs, and one is not a kind of the other, so we use composition (the program uses both side by side). Inheritance does appear in the standard library parts we rely on: `ifstream` and `stringstream` derive from `istream`, and `std::stod` throws `invalid_argument` and `out_of_range`, which derive from `std::exception`.
 - **Polymorphism:** we use default arguments (`MeanShift ms;` or `MeanShift ms(2.0, 1e-3, 300);`, and `loadFromCSV(file)` or `loadFromCSV(file, false)`), templates (`vector<Point>`, `vector<Cluster>`), and base-class references from the standard library (`catch (const exception&)`, `istream&` in `getline`). We did not write our own `virtual` functions, because there are no derived classes.
 
-Hand-drawn diagrams (photographed, in `reports/images/`):
-
-![Dataset and MeanShift class diagrams](images/encapsulation_classes.jpeg)
-![Namespace meanshift](images/encapsulation_namespace.jpeg)
-![Standard library inheritance](images/inheritance_stdlib.jpeg)
-![Polymorphism overview](images/polymorphism_overview.jpeg)
-
 ### 4.4 Important implementation decisions
 
-| Decision | Reason |
-| :--- | :--- |
-| Separate `Dataset` and `MeanShift`. | Loading files and clustering are different jobs. This made each one easier to write, test and give to different people. |
-| Gaussian kernel. | Smooth weights, no sharp cut-off, one parameter (bandwidth). |
-| Bandwidth guessed as half the average distance between points, using at most the first 500 points. | Avoids comparing every pair on large data, which would be very slow. |
-| Per-point stop flag (`stopMoving`). | Once a point has settled it is no longer recomputed. This saves a lot of time because every step compares a point with all others. |
-| `fit()` works on a copy of the data. | The caller's data is `const` and is never changed. |
-| Merge converged points that are within `bandwidth / 2`. | Floating-point numbers are almost never exactly equal, so we compare with a distance, not with `==`. |
-| `evaluate()` returns the mean distance from each point to its centroid. | It is quick to compute and easy to explain. Lower means tighter clusters. |
-| `loadFromCSV()` skips the header, empty lines and values that are not numbers. | Lets us use files with name or category columns (for example `students.csv`) without extra code. |
-| Static library `libmeanshift.a` with `install()` rules. | Other CMake projects can use it as `MeanShift::meanshift`. |
+1. **Separate `Dataset` and `MeanShift`:** Loading files and clustering are different jobs. This made each one easier to write, test and give to different people. 
+2. **Gaussian kernel:** Smooth weights, no sharp cut-off, one parameter (bandwidth). 
+3. **Bandwidth guessed as half the average distance between points, using at most the first 500 points:** Avoids comparing every pair on large data, which would be very slow. 
+4. **Per-point stop flag (`stopMoving`):** Once a point has settled it is no longer recomputed. This saves a lot of time because every step compares a point with all others. 
+5. **`fit()` works on a copy of the data:** The caller's data is `const` and is never changed. 
+6. **Merge converged points that are within `bandwidth / 2`:** Floating-point numbers are almost never exactly equal, so we compare with a distance, not with `==`. 
+7. **`evaluate()` returns the mean distance from each point to its centroid:** It is quick to compute and easy to explain. Lower means tighter clusters. 
+8. **`loadFromCSV()` skips the header, empty lines and values that are not numbers:** Lets us use files with name or category columns (for example `students.csv`) without extra code. 
+9. **Static library `libmeanshift.a` with `install()` rules:** Other CMake projects can use it as `MeanShift::meanshift`. 
 
 ## 5. Main functionality
 
@@ -160,12 +148,12 @@ Clustering evaluation score (cohesion): 0.622962
 
 `example3` does the same as `example1`, but asks the user to type the input and output file paths.
 
-Note: `my_data.csv`, `biology_data.csv` and `finance.csv` give identical results because they contain the same 30 points. They are separate files to show that the library works on different file names, not different data.
+**Note:** `my_data.csv`, `biology_data.csv` and `finance.csv` give identical results because they contain the same 30 points. They are separate files to show that the library works on different file names, not different data.
 
 ## 7. Testing
 
 ### 7.1 Approach
-We started with 2 tests in Week 3 and grew to 10 in Week 4. Tests are in `tests/test_meanshift.cpp` and run through CTest. Tests that need files create a small temporary CSV, use it, and delete it, so they pass from any folder.
+We started with 2 tests in Week 3 and grew to 10 in Week 4. Tests are in `tests/test_meanshift.cpp` and run through CTest. For tests that need files create a small temporary CSV, use it, and delete it, so they pass from any folder.
 
 ### 7.2 Unit tests (all 10 pass)
 
@@ -219,21 +207,19 @@ Commit counts are from `git log` (each person's different Git names and emails a
 
 | Member | Commits | Main contribution |
 | :--- | :---: | :--- |
-| Musiitwa Joseph | 39 | Repository set-up, root `CMakeLists.txt` (library, install rules, examples, tests), `.gitignore`, test file set-up and first tests, merging pull requests, aligning code style, coordinating integration and testing |
-| Muhindo Nazarene | 18 | First stage of `fit()` (bandwidth trigger, repeated shifting, `stopMoving`), `MeanShift.hpp` declarations, a test function, `finance.csv` |
-| Mark Jordan | 21 | Initial repository skeleton, `example2.cpp` (with Jonathan), `my_data.csv`, OOP diagrams, reviewing and merging pull requests, Week 4 report |
-| Atuzarirwe Happy | 12 | `standardize()` scaling step, `normalize()`, `testLoadFromCSV`, `testStandardize`, `students.csv` |
-| Kizza Johnson | 11 | `Dataset` class, `loadFromCSV`, `getData`, mean and standard deviation in `standardize`, `testEstimateBandwidth`, `testGetLabels`, `biology_data.csv` |
-| Atugonza Simon | 10 | `euclideanDistance`, `example1.cpp`, CSV data files including `text_data.csv` |
-| Muzaki Desire | 9 | Cluster formation stage of `fit()` (merging within `bandwidth/2`), `testNormalize`, interactive `example3.cpp` |
-| Clive | 5 | `getClusters`, `getLabels`, `evaluate`, `testEvaluate`, `testEmptyData` |
-| Sserunkuma Jonathan | 5 | `estimateBandwidth`, `shiftPoint`, `example2.cpp` (with Mark) |
+| Musiitwa Joseph | 29 | Repository set-up, root `CMakeLists.txt` (library, install rules, examples, tests), `.gitignore`, test file set-up and first tests, merging pull requests, aligning code style, coordinating integration and testing |
+| Muhindo Nazarene | 9 | First stage of `fit()` (bandwidth trigger, repeated shifting, `stopMoving`), `MeanShift.hpp` declarations, Week 2 report, a test function, `finance.csv` |
+| Mark Jordan | 13 | Initial repository skeleton, `example2.cpp` (with Jonathan), `my_data.csv`, OOP diagrams, reviewing and merging pull requests, Week 4 report |
+| Atuzarirwe Happy | 8 | `standardize()` scaling step, `normalize()`, `testLoadFromCSV`, `testStandardize`, `students.csv` |
+| Kizza Johnson | 5 | `Dataset` class, `loadFromCSV`, `getData`, mean and standard deviation in `standardize`, `testEstimateBandwidth`, `testGetLabels`, `biology_data.csv` |
+| Atugonza Simon | 8 | `euclideanDistance`, `example1.cpp`, CSV data files including `text_data.csv` |
+| Muzaki Desire | 6 | Cluster formation stage of `fit()` (merging within `bandwidth/2`), `testNormalize`, interactive `example3.cpp` |
+| Clive | 4 | `getClusters`, `getLabels`, `evaluate`, `testEvaluate`, `testEmptyData` |
+| Sserunkuma Jonathan | 4 | `estimateBandwidth`, `shiftPoint`, `example2.cpp` (with Mark) |
 
-Every member has visible commits. Every member has to be able to explain the whole library, not only their own part.
+**How we worked together:** One person (or a pair) per function, one branch per task, a pull request for every change, and a different member reviewing and merging. Weekly reports were written from the commit history.
 
-How we worked together: one person (or a pair) per function, one branch per task, a pull request for every change, and a different member reviewing and merging. Weekly reports were written from the commit history.
-
-## 10. Limitations (honest list)
+## 10. Limitations 
 
 1. **Speed.** Each step compares a point with every other point, so running time grows quickly with the number of points. It is fine for hundreds of points, not for very large data.
 2. **One kernel.** Only the Gaussian kernel is available.

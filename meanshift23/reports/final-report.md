@@ -265,7 +265,7 @@ Per-member declarations are in each individual report:
 | Kizza | Gemini, ChatGPT | `stringstream` splitting and `std::stod` exceptions |
 | Clive | Gemini, ChatGPT | Cohesion metric and silhouette score |
 | Mark | Gemini, Claude | Inheritance and polymorphism in our code, before drawing diagrams |
-| Simon | *(no individual report found; add your declaration)* | |
+| Simon | Gemini, Claude | Checking the Gaussian kernel formula; C++ best practice for `static` and `const` functions |
 
 ## 13. How to build and test (clean machine)
 

@@ -59,6 +59,7 @@ All code is inside `namespace meanshift`. Two type names are used everywhere: `P
 ### 4.2 The classes 
 
 **Class 1: `Dataset`**
+
 `meanshift::Dataset` (`Dataset.hpp`, `Dataset.cpp`). 
 To keep reading and preparing data in one place, separate from the clustering. 
 It holds one member: `data_`, all the points read from the CSV file. 
@@ -67,6 +68,7 @@ Functions:`loadFromCSV()` fills it. `standardize()` and `normalize()` rescale it
 Usage: create a `Dataset`, call `loadFromCSV()`, optionally scale, then pass `getData()` to `MeanShift`. 
 
 **Class 2: `MeanShift`**
+
 `meanshift::MeanShift` (`MeanShift.hpp`, `meanshift.cpp`). 
 To keep the algorithm and its settings together. The user sets the settings once, calls `fit()`, then reads the results. 
 It holds Settings: `bandwidth_`, `epsilon_`, `maxIterations_`. Results: `clusters_`, `labels_`. 
@@ -75,6 +77,7 @@ Settings and results are private, so the results always match the settings that 
 Usage: construct, `fit(data)`, read results. `MeanShift` needs only the `Data` type, not `Dataset`, so it can cluster data from any source. 
 
 **Struct: `Cluster`** 
+
 This is a plain struct with two public members, `centroid` (a `Point`) and `pointIndices` (which rows belong to it). It is a simple bundle of result data with no behaviour, so a struct is enough. Callers get it through a `const` reference.
 
 ### 4.3 Encapsulation, inheritance and polymorphism

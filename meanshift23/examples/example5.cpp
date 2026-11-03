@@ -9,6 +9,7 @@
 using namespace std;
 int main() {
     // A list of different files to process
+    // This is a list of different files to process
     vector<string> inputFiles = {
         "data/input/my_data.csv",
         "data/input/biology_data.csv",

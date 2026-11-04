@@ -32,14 +32,28 @@ int main() {
     
     int i = 0;
     for (const auto& c : clusters) {
-        cout << "Cluster " << i++ << " centroid: (";
+   /*     cout << "Cluster " << i++ << " centroid: (";
         for (size_t d = 0; d < c.centroid.size(); ++d) {
             cout << c.centroid[d] << (d == c.centroid.size() - 1 ? "" : ", ");
         }
         cout << ") with " << c.pointIndices.size() << " points." << endl;
     }
-    //happy
+    
     cout << "Clustering evaluation score (cohesion): " << ms.evaluate(data) << endl;
     
     return 0;
 }
+*/
+    // --- LIVE CODING DEMO: Feature Scaling & Bandwidth Sensitivity ---
+    dataset.standardize(); // Rescale features to mean = 0, stdDev = 1
+
+    vector<double> testBandwidths = {0.3, -1.0, 5.0}; // Small, Auto-Estimated (-1.0), and Large h
+    for (double bw : testBandwidths) {
+        meanshift::MeanShift ms(bw, 1e-3, 300);
+        ms.fit(dataset.getData());
+
+        cout << "\n[Live Demo] Bandwidth arg = " << bw
+             << " | Clusters Found = " << ms.getClusters().size()
+             << " | Cohesion Score = " << ms.evaluate(dataset.getData()) << endl;
+    }
+    }
